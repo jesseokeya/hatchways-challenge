@@ -94,7 +94,7 @@ func (a PostSorter) Swap(i, j int) { a.Posts[i], a.Posts[j] = a.Posts[j], a.Post
 // Less determines the smaller post based on a field . And is a function of the go sort interface
 func (a PostSorter) Less(i, j int) bool {
 	if a.By == EnumSortByReads {
-		if a.Direction == "asc" {
+		if a.Direction == EnumDirectionAsc {
 			return a.Posts[i].Reads < a.Posts[j].Reads
 		}
 		return a.Posts[i].Reads > a.Posts[j].Reads
@@ -120,10 +120,10 @@ func (a PostSorter) Less(i, j int) bool {
 
 // ApplyFilters	applies the filters to the posts to be returned
 func ApplyFilters(p *PostResponse, r *FilterQueryParams) *PostResponse {
-	direction := strings.Trim(r.Direction, " ")
+	direction := EnumDirection(strings.Trim(r.Direction, " "))
 	if direction == "" {
 		// asc is default if no direction is specified
-		direction = "asc"
+		direction = EnumDirectionAsc
 	}
 
 	// Sort the posts based on the sort by and direction

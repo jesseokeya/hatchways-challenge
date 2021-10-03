@@ -38,6 +38,8 @@ func GetPosts(ctx context.Context, r *hatchways.FilterQueryParams) (*hatchways.P
 	// Removes duplicate when appending the post to the PostResponse
 	lookUp := make(map[int64]bool)
 
+	// fmt.Println(runtime.NumGoroutine())
+
 	// Iterate through all tags
 	for _, tag := range tags {
 		keys, exists := SeenTags.Load(tag)
@@ -91,7 +93,7 @@ func GetPosts(ctx context.Context, r *hatchways.FilterQueryParams) (*hatchways.P
 	// Go routine to fetch posts from hatchways API for all tags in the relatedTags array
 	go func(t []string) {
 		for _, tag := range t {
-			_, _ = GetPosts(context.Background(), &hatchways.FilterQueryParams{Tags: tag})
+			GetPosts(context.Background(), &hatchways.FilterQueryParams{Tags: tag})
 		}
 	}(relatedTags)
 
