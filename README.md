@@ -1,6 +1,6 @@
 # Hatchways Challenge
 
-Backend service written with love
+Backend service written for hatchways coding challenge 2021
 
 ### Prerequisites
 
